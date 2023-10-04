@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">     
+    
+    
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("xSUVReVvmmMfOFk-Q");
+      })();
+    </script>
+    <style>
+      body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+}
+
+.button-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: 50px;
+  background-color: #007BFF;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+
+.feedback-form {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: auto; /* Add both horizontal and vertical scrollbars */
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+
+.feedback-form.active {
+  width: 500px;
+  height: 500px; /* Increase the height as needed */
+  opacity: 1;
+}
+
+.feedback-form h2 {
+  text-align: center;
+}
+
+.feedback-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  padding-left: 10px; /* Add left padding to shift the text away from the border */
+}
+
+.feedback-form input[type="email"],
+.feedback-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f7f7f7;
+  margin-bottom: 10px;
+}
+
+.feedback-form input[type="email"] {
+  width: 100%;
+  max-width: 100%;
+}
+
+.feedback-form textarea {
+  width: 100%;
+  max-width: 100%;
+  height: 150px;
+}
+
+/* Center the submit button */
+.feedback-form .submit-btn {
+  display: block;
+  width: 50%; /* Adjust the width as needed */
+  margin: 0 auto; /* Center horizontally */
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.feedback-form .submit-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Shift the X button to the right side */
+.feedback-form .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+  </style>
+  </head>
+  <body>
+    <div class="button-container" id="feedbackButton">Feedback</div>
+
+    <div class="feedback-form" id="feedbackForm">
+       
+        <h2>Feedback Form</h2>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        
+            <label for="feedback">Feedback:</label>
+            <textarea id="feedback" name="feedback" required placeholder="write here"></textarea>
+    
+          
+            <button type="submit" class="submit-btn" name="submit-btn" onclick="sendMail()">Submit</button>
+
+
+            <button id="closeButton" class="close-button">X</button>
+        </form>
+    </div>
+        
+        </div>
+      </div>
+    </div>
+    <script>
+        const feedbackButton = document.getElementById("feedbackButton");
+        const feedbackForm = document.getElementById("feedbackForm");
+        const closeButton = document.getElementById("closeButton");
+        const maximizeButton = document.getElementById("maximizeButton");
+
+        feedbackButton.addEventListener("click", () => {
+            feedbackForm.classList.add("active");
+        });
+
+        closeButton.addEventListener("click", () => {
+            feedbackForm.classList.remove("active");
+        });
+
+        maximizeButton.addEventListener("click", () => {
+            feedbackForm.classList.toggle("maximized");
+        });
+        function sendMail() {
+  var params = {
+   
+    message: document.getElementById("feedback").value,
+  };
+
+  const serviceID = "service_yszr9nr";
+  const templateID = "template_qthcuum";
+
+    emailjs.send(serviceID, templateID, params)
+    .then(res=>{
+        
+        document.getElementById("feedback").value = "";
+        console.log(res);
+        alert("Your feedback sent successfully!!")
+
+    })
+    .catch(err=>console.log(err));
+
+}
+        
+    </script>
+  </body>
+</html>
